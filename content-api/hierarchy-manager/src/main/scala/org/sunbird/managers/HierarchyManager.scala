@@ -450,20 +450,30 @@ object HierarchyManager {
         val req = new Request(request)
         req.put("identifier", identifier.replaceAll(".img", "") + ".img")
         val responseFuture = oec.graphService.readExternalProps(req, List("relational_metadata"))
+        println("responseFuture.........",responseFuture)
         responseFuture.map(response => {
             if (!ResponseHandler.checkError(response)) {
                 val relationalMetadataString = response.getResult.toMap.getOrDefault("relational_metadata", "").asInstanceOf[String]
+                println("1 Error stack new in if statement................................................")
+                println(relationalMetadataString)
+                println("2 Error stack end..",response)
                 if (StringUtils.isNotEmpty(relationalMetadataString)) {
                     Future(JsonUtils.deserialize(relationalMetadataString, classOf[java.util.Map[String, AnyRef]]).toMap)
                 } else
                     Future(Map[String, AnyRef]())
             } else {
+                println("3 Error stack new in else statement................................................")
+                println(relationalMetadataString)
+                println("4 Error stack end inside else..",response)
                 val req = new Request(request)
                 req.put("identifier", identifier)
                 val responseFuture = oec.graphService.readExternalProps(req, List("relational_metadata"))
                 responseFuture.map(response => {
                     if (!ResponseHandler.checkError(response)) {
                         val relationalMetadataString = response.getResult.toMap.getOrDefault("relational_metadata", "").asInstanceOf[String]
+                         println("5 Error stack new in else if statement................................................")
+                         println(relationalMetadataString)
+                        println("6 Error stack end inside else if..",response)
                         if (StringUtils.isNotEmpty(relationalMetadataString)) {
                             Future(JsonUtils.deserialize(relationalMetadataString, classOf[java.util.Map[String, AnyRef]]).toMap)
                         } else
