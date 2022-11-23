@@ -463,8 +463,6 @@ object HierarchyManager {
                     Future(Map[String, AnyRef]())
             } else {
                 println("3 Error stack new in else statement................................................")
-                println(relationalMetadataString)
-                println("4 Error stack end inside else..",response)
                 val req = new Request(request)
                 req.put("identifier", identifier)
                 val responseFuture = oec.graphService.readExternalProps(req, List("relational_metadata"))
@@ -474,6 +472,7 @@ object HierarchyManager {
                          println("5 Error stack new in else if statement................................................")
                          println(relationalMetadataString)
                         println("6 Error stack end inside else if..",response)
+                        println("7 relationalMetadataString ",relationalMetadataString)
                         if (StringUtils.isNotEmpty(relationalMetadataString)) {
                             Future(JsonUtils.deserialize(relationalMetadataString, classOf[java.util.Map[String, AnyRef]]).toMap)
                         } else
