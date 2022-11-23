@@ -458,8 +458,10 @@ object HierarchyManager {
                 println(relationalMetadataString)
                 println("2 Error stack end..",response)
                 if (StringUtils.isNotEmpty(relationalMetadataString)) {
+                    println("Inside if another if is notempty condition")
                     Future(JsonUtils.deserialize(relationalMetadataString, classOf[java.util.Map[String, AnyRef]]).toMap)
                 } else
+                println("else inside else")
                     Future(Map[String, AnyRef]())
             } else {
                 println("3 Error stack new in else statement................................................")
